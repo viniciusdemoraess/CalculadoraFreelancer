@@ -17,23 +17,42 @@ const jobs = [
         name: "Pizzaria Guloso",
         "daily-hours": 2,
         "total-hours": 60, 
-        created_at: Date.now()
+        created_at: Date.now(),
     },
     {
         id: 2,
         name: "One Two Project",
         "daily-hours": 3,
         "total-hours": 47, 
-        created_at: Date.now()
+        created_at: Date.now(),
     }
 ]
 
 //req, res 
-routes.get('/', (req, res) => res.render(views + "index", { jobs }))
+routes.get('/', (req, res) =>{
+
+    const updatedJobs = jobs.map((job) => {
+        // ajustes no job, calculo de tempo restante
+        const remainingDays = (job["total-hours"] / job["daily-hours"]).toFixed()
+        
+        const createdDate = new Date(job.created_at)
+        const dueDay = createdDate.getDate() + Number(remainingDays)
+        //const dueDate = createdDate.setDate
+
+
+        return job
+    })
+
+    return res.render(views + "index", { jobs })
+
+})
+
+
 routes.get('/job', (req, res) => res.render(views + "job"))
 routes.post('/job', (req, res) => {
     // req.body = {name: `Vini` , `daily-hours`: `3.1` ,`total-hours` : `3`}
-    const lastId = jobs[jobs.length - 1]?.id || 1;
+    const lastId = jobs[jobs.length - 1].id || 1; //Problemas com a ? antes do ponto (.)
+
     jobs.push({
         id: lastId + 1,
         name: req.body.name,
