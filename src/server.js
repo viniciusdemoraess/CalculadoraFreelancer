@@ -1,9 +1,14 @@
 const express = require("express")//Importanto o express para uma variavel const
 const server = express() //rodando a funcao express
 const routes = require("./routes")
-
+const path = require("path")
 //usando template engine
 server.set('view engine', 'ejs')
+
+//mudar a localizacao da pasta views
+server.set('views', path.join(__dirname, 'views'))
+
+
 //habilitar arquivos statics
 server.use(express.static("public"))
 
