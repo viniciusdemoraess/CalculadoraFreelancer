@@ -22,7 +22,6 @@ const initDb = {
             daily_hours TEXT,
             total_hours INT,
             created_at DATETIME
-
         )`);
 
         await db.run(`INSERT INTO profile (
@@ -31,14 +30,16 @@ const initDb = {
             monthly_budget,
             days_per_week,
             hours_per_day,
-            vacation_per_year
+            vacation_per_year,
+            value_hour
         ) VALUES (
             "Vinícius de Moraes",
             "https://github.com/viniciusdemoraess.png",
             3000,
             5,
             5,
-            4
+            4,
+            70
         );`)
 
         await db.run(`INSERT INTO jobs(
